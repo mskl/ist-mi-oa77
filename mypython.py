@@ -1,8 +1,8 @@
 def foo():
-    print("Hello")
+    print("I'm")
 
 def bar():
-    print("World")
+    print("Tired")
 
 if __name__ == "__main__":
     foo()
