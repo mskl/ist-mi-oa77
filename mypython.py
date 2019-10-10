@@ -2,7 +2,7 @@ def foo():
     print("I'm")
 
 def bar():
-    print("MANUEL")
+    print("Hungry !")
 
 if __name__ == "__main__":
     foo()
