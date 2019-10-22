@@ -28,6 +28,33 @@
 
 \section{Task 1}
 
+
+\section{Task 2}
+
+\section{Task 3}
+
+\section{Task 4}
+
+\section{Task 5}
+\noindent\fcolorbox{black}{lightgray}{
+    \parbox{\textwidth}{ \textbf{Task 5.} Using simple geometric arguments, give a  closed-form expression for $d\left( p,D(c,r) \right)$.
+    }
+} \\
+
+The only two possible outcomes that might happen are the following:
+\begin{itemize}
+	\item The robot passes within the disc
+		$$\text{if } d(p(\tau_{k}), c_{k}) \leq r_{k} \text{ then } d_{k} = 0$$
+	\item The robot passes outside of the disc
+		$$\text{if } d(p(\tau_{k}), c_{k}) > r_{k}\text{ then }d_{k} = d(p(\tau_{k}), c_{k}) - r_{k}$$
+\end{itemize}
+The whole equation can be written as
+$$\textit{max}(0, d(p(\tau_{k}), c_{k}) - r_{k})$$
+
+
+\end{document}
+
+
 Note that each task has its own section. So, put all the data (figures, numbers, tables) asked for in a  task in its own section.
 
 Plutting a matlab file code in your report is easy:
@@ -65,16 +92,6 @@ Sometimes, a table is the most useful way to give information. See table~\ref{ta
   \end{center}
       \caption{An example of a table.} \label{tab1}
 \end{table}
-
-
-
-\section{Task 2}
-
-\section{Task 3}
-
-\section{Task 4}
-
-\end{document}
 
 
 In the first part of the project,  we play with the following basic question: How should we act on a robot so that it transfers from a given position to another desired position? 

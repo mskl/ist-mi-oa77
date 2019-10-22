@@ -1,4 +1,3 @@
-function [mean_dev] = get_mean_dev(E, tau, x, w)
-    selected = E*x;
-    mean_dev = sum(vecnorm(selected(:, tau) - w, 2, 1)) / length(tau);
+function [mean_dev] = get_mean_dev(tau, x, w)
+    mean_dev = sum(vecnorm(x(1:2, tau) - w, 2, 1)) / length(tau);
 end
