@@ -1,7 +1,7 @@
-# OA77
-Optimisation Algorithms course at IST
+# OA77 - Optimisation Algorithms course at IST
 
- ## 1. part of the project
+ ## Part 1 of the project
+ >[projectpart1.pdf](projectpart1.pdf)
  - [ ] Task 1 - Different Lambdas
  - [ ] Task 2 - Without the L2 regularizer
  - [ ] Task 3 - L1 regularizer
