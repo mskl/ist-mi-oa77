@@ -42,11 +42,13 @@ for i = 2
         
         delta = u(:, 2:T) - u(:, 1:T-1);        
         if version == 1
-            minimize(sum(vec_sqr_sum(E*x(:,tau+1) - w)) + lambda*sum(vec_sqr_sum(delta))) 
+            minimize(sum(sum_square(E*x(:,tau+1) - w)) + lambda*sum(sum_square(delta))) 
         elseif version == 2
-            minimize(square_pos(norm(E*x(:, tau) - w, 2)) + lambda*norm(delta, 2));
+            % Not corrected
+            minimize(sum(sum_square(E*x(:,tau+1) - w)) + lambda*norm(delta, 2));
         elseif version == 3
-            minimize(square_pos(norm(E*x(:, tau) - w, 2)) + lambda*norm(delta, 1));
+            % Not corrected
+            minimize(sum(sum_square(E*x(:,tau+1) - w)) + lambda*norm(delta, 1));
         end
         
         subject to
@@ -75,7 +77,7 @@ for i = 2
     scatter(p_final(1), p_final(2), "filled", 'd')
     scatter(x(1, :), x(2, :), 'o', 'MarkerEdgeColor', "blue");
     scatter(w(1, :), w(2, :), 300, "square", "MarkerEdgeColor", "red", 'LineWidth', 2);
-    scatter(x(1, tau), x(2, tau), 200, 'o', 'MarkerEdgeColor', "magenta", 'LineWidth', 1.5);  
+    scatter(x(1, tau+1), x(2, tau+1), 200, 'o', 'MarkerEdgeColor', "magenta", 'LineWidth', 1.5);  
     title (sprintf('Pos for lambda = pow(10, %d)',(-3+i)));
     hold(ax1,'off');
     
