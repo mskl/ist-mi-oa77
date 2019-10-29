@@ -20,7 +20,7 @@
 \bibliographystyle{alpha}
 
 \title{Optimization and Algorithms \\ Project report}
-\author{Group 00 \\ Matyas Skalicky 194904, Carolina Guariglia 83993, \\Manel Freitas 123456 and Carina Fernandes 123456}
+\author{Group 00 \\ Matyas Skalicky 94904, Carolina Guariglia 83993, \\Manel Freitas 123456 and Carina Fernandes 123456}
 \date{}
 
 
@@ -28,7 +28,6 @@
 \maketitle
 
 \section{Task 1}
-%hello world!!
 
 \section{Task 2}
 
@@ -70,23 +69,22 @@ The function $\phi$ outputs a zero if its argument is zero and outputs a one, ot
     }
 }\\
 
-Function is called convex if
 \begin{equation}
 	\forall x_1, x_2 \in X, \forall t \in [0, 1]: \qquad f(tx_1+(1-t)x_2)\leq t f(x_1)+(1-t)f(x_2)
 \end{equation}
 
-A function is convex if for any two points $x_{1}, x_{2}$ ant $t\in[0, 1]$ the above inequality is true. We select $x_{1} = 0$, $x_{2} = 1$ and $t=0.5$. The inequality therefore looks like
+Function f is convex if for any two points $x_{1}, x_{2}$ ant $t\in[0, 1]$ the above inequality is true. We select $x_{1} = 0$, $x_{2} = 1$ and $t=0.5$. The inequality for this setting and function $\phi$ is described below.
 
 \begin{equation}
 \begin{split}
-	f(t \cdot x_1+(1-t) \cdot x_2) &\leq t \cdot f(x_1)+(1-t) \cdot f(x_2)\\
-	f(0.5 \cdot 0 + 0.5 \cdot 1) &\leq 0.5 \cdot f(0) + 0.5 \cdot f(1)\\
-	f(0.5) &\leq 0.5 \cdot f(0) + 0.5 \cdot f(1)\\
+	\phi(t \cdot x_1+(1-t) \cdot x_2) &\leq t \cdot \phi(x_1)+(1-t) \cdot \phi(x_2)\\
+	\phi(0.5 \cdot 0 + 0.5 \cdot 1) &\leq 0.5 \cdot \phi(0) + 0.5 \cdot f(1)\\
+	\phi(0.5) &\leq 0.5 \cdot \phi(0) + 0.5 \cdot f(1)\\
 	1 &\leq 0.5
 \end{split}
 \end{equation}
 
-which is in case of $\phi$ a contradiction for selected $x_{1}$, $x_{2}$ and t. Since $\phi$ does not fulfill the requirements for a convex function, we conclude that it is non convex.
+As we can see above, this inequality is a contradiction for selected $x_{1}$, $x_{2}$ and t. Since $\phi$ does not fulfill the requirements for a convex function, we conclude that it is non convex.
 
 %f : $R^{n} \rightarrow R$ is convex if
 %\begin{equation}
