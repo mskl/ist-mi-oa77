@@ -10,13 +10,21 @@ git clone https://github.com/mskl/OA77
 git remote add overleaf https://git.overleaf.com/5db8a22a0b5b18000153e512
 ```
 
+You can make sure that you have added the remote by typing
+
+``` bash
+git remote
+# > origin
+# > overleaf
+```
+
 3. Pull the overleaf remote. You will be prompted for your overleaf credentials.
 
 ``` bash
 git pull overleaf master
 ```
 
-All three of the repositories are in sync with your local copy. When you come to your computer before starting to work on anything you should do
+All three of the repositories are in sync with your local copy now. When you come to your computer before starting to work on anything you should do
 ``` bash
 git pull origin master      # pull the repo from git
 git pull overleaf master    # pull the repo from overleaf
@@ -38,3 +46,5 @@ git push origin master
 # In case you need some of the files also on overleaf
 git push overleaf master
 ```
+
+If you make any changes on Overleaf, they are not instantly commited. The commit is (automatically) created whenever you pull the changes from Overleaf.
