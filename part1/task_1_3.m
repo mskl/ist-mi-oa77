@@ -2,7 +2,7 @@
 % 1 - l2^2
 % 2 - l2
 % 3 - l1
-version = 1;
+version = 2;
 
 for i = 2
     lambda = 10^(-3+i);
@@ -42,20 +42,23 @@ for i = 2
         
         delta = u(:, 2:T) - u(:, 1:T-1);        
         if version == 1
+            % expected 2.1958 with i=2
             minimize(sum(sum_square(E*x(:,tau+1) - w)) + lambda*sum(sum_square(delta))) 
         elseif version == 2
-            % Not corrected
-            minimize(sum(sum_square(E*x(:,tau+1) - w)) + lambda*norm(delta, 2));
+            % expected 0.7021 with i=2
+            minimize(sum(sum_square(E*x(:,tau+1) - w)) + lambda*sum(norms(delta, 2)));
         elseif version == 3
-            % Not corrected
-            minimize(sum(sum_square(E*x(:,tau+1) - w)) + lambda*norm(delta, 1));
+            % expected 0.8863 with i=2
+            minimize(sum(sum_square(E*x(:,tau+1) - w)) + lambda*sum(norms(delta, 1)));
         end
         
         subject to
-            % Also set the speed to 0
+            % Initial and end speed need to be 0
             x(:,1)     == [p_initial; [0; 0]]
             x(:,T+1)   == [p_final;   [0; 0]]
+            % Make sure that the robot moves using the contrains
             x(:,2:T+1) == A*x(:,1:T) + B*u(:,1:T);
+            % Check the actuator force size
             for ux = u
                 norm(ux, 2) <= U_max; 
             end
