@@ -1,25 +1,26 @@
 \documentclass[12pt]{article}
-\usepackage{fullpage,psfrag,amsmath,amsfonts,verbatim,mathtools,scrextend}
+
+\usepackage{fullpage}
+\usepackage{psfrag}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{verbatim}
+\usepackage{mathtools}
+\usepackage{scrextend}
 \usepackage[small,bf]{caption}
-
 \usepackage[framed,numbered]{mcode}
-
-
 \usepackage[applemac]{inputenc}
 \usepackage[T1]{fontenc}
-
 \usepackage{url}
-
 \usepackage[demo]{graphicx}
 \usepackage{subfigure}
 \usepackage{xcolor}
-
 \usepackage{enumerate}
 
 \bibliographystyle{alpha}
 
 \title{Optimization and Algorithms \\ Project report}
-\author{Group 58 \\ John Boyd 33452, Steven Hurwitz 18739, and Carol Higgs 90432}
+\author{Group 00 \\ Matyas Skalicky 194904, Carolina Guariglia 123456, \\Manel Freitas 123456 and Carina Fernandes 123456}
 \date{}
 
 
@@ -41,20 +42,63 @@
     }
 } \\
 
-The only two possible outcomes that might happen are the following:
-\begin{itemize}
-	\item The robot passes within the disc
-		$$\text{if } d(p(\tau_{k}), c_{k}) \leq r_{k} \text{ then } d_{k} = 0$$
-	\item The robot passes outside of the disc
-		$$\text{if } d(p(\tau_{k}), c_{k}) > r_{k}\text{ then }d_{k} = d(p(\tau_{k}), c_{k}) - r_{k}$$
-\end{itemize}
-The whole equation can be written as
-$$\textit{max}(0, d(p(\tau_{k}), c_{k}) - r_{k})$$
+Based on whether the robot passes within the disc or not, the following cases might occur
+\begin{equation}
+	d\left( p,D(c,r) \right) = 
+	\begin{cases} 
+		0				 			& \text{if } d\left(p(\tau_{k}), c_{k}\right) \leq r_{k}\\
+		d\left(p(\tau_{k}), c_{k}\right) - r_{k} 	& \text{if } d\left(p(\tau_{k}), c_{k}\right) > r_{k}
+	\end{cases}
+\end{equation}
 
+
+The whole equation can be then expressed in closed form as 
+\begin{equation}
+	\textit{max}\left(0, d\left(p(\tau_{k}), c_{k}\right) - r_{k}\right)
+\end{equation}
+
+\section{Task 6}
+
+\section{Task 7}
+
+\section{Task 8}
+The function $\phi$ outputs a zero if its argument is zero and outputs a one, otherwise. That is, we have $\phi\,:\,{\mathbf R}^2 \rightarrow {\mathbf R}$, with $$\phi(x) = \left\{ \begin{array}{ll} 0,  & \text{ if } x = 0, \\ 1, & \text{ if }x \neq 0. \end{array} \right.$$
+
+\noindent\fcolorbox{black}{lightgray}{
+    \parbox{\textwidth}{ \textbf{Task 8.} Show that the function $\phi$ is nonconvex.
+    
+    }
+}\\
+
+Function is called convex if
+\begin{equation}
+	\forall x_1, x_2 \in X, \forall t \in [0, 1]: \qquad f(tx_1+(1-t)x_2)\leq t f(x_1)+(1-t)f(x_2)
+\end{equation}
+
+A function is convex if for any two points $x_{1}, x_{2}$ ant $t\in[0, 1]$ the above inequality is true. We select $x_{1} = 0$, $x_{2} = 1$ and $t=0.5$. The inequality therefore looks like
+
+\begin{equation}
+\begin{split}
+	f(t \cdot x_1+(1-t) \cdot x_2) &\leq t \cdot f(x_1)+(1-t) \cdot f(x_2)\\
+	f(0.5 \cdot 0 + 0.5 \cdot 1) &\leq 0.5 \cdot f(0) + 0.5 \cdot f(1)\\
+	f(0.5) &\leq 0.5 \cdot f(0) + 0.5 \cdot f(1)\\
+	1 &\leq 0.5
+\end{split}
+\end{equation}
+
+which is in case of $\phi$ a contradiction for selected $x_{1}$, $x_{2}$ and t. Since $\phi$ does not fulfill the requirements for a convex function, we conclude that it is non convex.
+
+%f : $R^{n} \rightarrow R$ is convex if
+%\begin{equation}
+%	f ((1 - \alpha)x + \alpha y) \leq (1 - \alpha)f (x) + \alpha f (y)
+%\end{equation}
+%for all x, y $\in$ R and $0 \leq \alpha \leq 1$
 
 \end{document}
 
 
+
+%%%%%%%%%%%%%%% EXAMPLES FROM THE SUPPLIED LATEX %%%%%%%%%%%%%%%%%%%%
 Note that each task has its own section. So, put all the data (figures, numbers, tables) asked for in a  task in its own section.
 
 Plutting a matlab file code in your report is easy:

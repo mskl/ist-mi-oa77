@@ -2,7 +2,7 @@
 % 1 - l2^2
 % 2 - l2
 % 3 - l1
-version = 2;
+task = 2;
 
 for i = 2
     lambda = 10^(-3+i);
@@ -41,13 +41,13 @@ for i = 2
         variable u(2,T);
         
         delta = u(:, 2:T) - u(:, 1:T-1);        
-        if version == 1
+        if task == 1
             % expected 2.1958 with i=2
             minimize(sum(sum_square(E*x(:,tau+1) - w)) + lambda*sum(sum_square(delta))) 
-        elseif version == 2
+        elseif task == 2
             % expected 0.7021 with i=2
             minimize(sum(sum_square(E*x(:,tau+1) - w)) + lambda*sum(norms(delta, 2)));
-        elseif version == 3
+        elseif task == 3
             % expected 0.8863 with i=2
             minimize(sum(sum_square(E*x(:,tau+1) - w)) + lambda*sum(norms(delta, 1)));
         end
