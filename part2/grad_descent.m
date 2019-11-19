@@ -6,12 +6,19 @@ x1=X(1,:);
 x2=X(2,:);
 S(:,1)=s0;
 r(1)=r0;
+
 while(1)
     h_S=S(:,k)'*X -r(k);
     aux_exp= exp(h_S);
     f_s=1+aux_exp;
     aux_exp= aux_exp./(f_s) - Y;
-    g= (1/length(X))*[sum(x1.*aux_exp) ; sum(x2.*aux_exp) ; sum(-aux_exp) ] ;
+    %g= (1/length(X))*[sum(x1.*aux_exp) ; sum(x2.*aux_exp) ; sum(-aux_exp) ] ;
+    g=[];
+    for i=1:length(X(:,1))
+        g=[g ; sum(X(i,:).*aux_exp)];
+    end
+    g=[g; sum(-aux_exp)];
+    g=g/length(X);
     grad_norm(k)=norm(g);
     if(norm(g) < e)
         break;
@@ -20,8 +27,8 @@ while(1)
         a(k)=1; %backtracking(1,10^-4,0.5);
         while(1)
             cond2=sum(log(f_s) - Y.*h_S) + g' *a(k) *d(:,k); 
-            auxS=S(:,k) + a(k)*d(1:2,k);
-            auxr=r(k) + a(k)*d(3,k);
+            auxS=S(:,k) + a(k)*d(1:end-1,k);
+            auxr=r(k) + a(k)*d(end,k);
             cond1=sum(log(1+exp(auxS'*X-auxr))-Y.*(auxS'*X-auxr))/length(X);
             if( cond1 < cond2)
                 break;
@@ -34,15 +41,8 @@ while(1)
     end
 end
 figure
-scatter(X(1,:),X(2,:),[],Y,'filled')
-colormap flag
-hold on
-x=min(X(1,:)):0.01:max(X(1,:));
-plot(x,(-S(1,end)*x +r(end))/S(2,end))
-
-figure
-%plot(1:1:k ,grad_norm)
-%set(gca, 'YScale', 'log')
 semilogy(1:k,grad_norm);
+xlabel('k');
+title('to complete')
 grid on;
 end
