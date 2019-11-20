@@ -2,23 +2,19 @@ function [S,r] = grad_descent(X,Y,s0,r0,e)
 %grad_descent Summary of this function goes here
 %   Detailed explanation goes here
 k=1;
-x1=X(1,:);
-x2=X(2,:);
+
 S(:,1)=s0;
 r(1)=r0;
-
+aux_ones=-1*ones(1,length(X));
 while(1)
     h_S=S(:,k)'*X -r(k);
     aux_exp= exp(h_S);
     f_s=1+aux_exp;
     aux_exp= aux_exp./(f_s) - Y;
-    %g= (1/length(X))*[sum(x1.*aux_exp) ; sum(x2.*aux_exp) ; sum(-aux_exp) ] ;
-    g=[];
-    for i=1:length(X(:,1))
-        g=[g ; sum(X(i,:).*aux_exp)];
-    end
-    g=[g; sum(-aux_exp)];
-    g=g/length(X);
+    
+    g = X*aux_exp';
+    g=[g; sum(-aux_exp)] / length(X);
+
     grad_norm(k)=norm(g);
     if(norm(g) < e)
         break;
