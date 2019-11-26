@@ -28,12 +28,33 @@
 \maketitle
 
 \section{Task 1}
+\noindent\fcolorbox{black}{lightgray}{
+    \parbox{\textwidth}{ \textbf{Task 1.} Use  the software {\tt CVX} from {\tt http://cvxr.com/cvx} to solve problem~\eqref{prob1} for $\lambda \in \{ 10^{-3}, 10^{-2}, 10^{-1}, 10^0, 10^1, 10^2, 10^3 \}$. So, you solve $7$ problems (one per value of $\lambda$ in the list). After each problem is solved, do the following: \begin{enumerate}[(a)]
+    \item plot the optimal positions of the robot from $t = 0$ to $t = T$, marking its positions at the appointed times $\tau_k$, for $1 \leq k \leq K$;
+    \item plot the optimal control signal $u(t)$, where $u(t) = ( u_1(t), u_2(t) )$, from $t = 0$ to $t = T-1$;
+    \item report how many times the optimal control signal changes from $t = 1$ to $t = T-1$: we say that the control signal changes at time $t$ if $\left\| u(t) - u(t-1) \right\|_2 > 10^{-6}$; this tells us how much the fourth wish of a simple control is ignored;
+    \item report the mean deviation from the waypoints, defined as \begin{equation} \frac{1}{K} \sum_{k = 1}^K \left\| E x(\tau_k) - w_k \right\|_2, \label{meanwaydev} \end{equation} which tells us how much the third wish (waypoints) is ignored.
+    \end{enumerate}
+    }
+}\\
 
 \section{Task 2}
+\noindent\fcolorbox{black}{lightgray}{
+    \parbox{\textwidth}{ \textbf{Task 2.} Redo task 1 for the optimization problem~\eqref{prob2}. 
+    }
+}\\
 
 \section{Task 3}
+\noindent\fcolorbox{black}{lightgray}{
+    \parbox{\textwidth}{ \textbf{Task 3.} Redo task 1 for the optimization problem~\eqref{prob3}. 
+    }
+}\\
 
 \section{Task 4}
+\noindent\fcolorbox{black}{lightgray}{
+    \parbox{\textwidth}{ \textbf{Task 4.} Comment on what you have observed from Tasks 1 to 3 (for example, compare the impact of the three regularizers on the optimal control signal that they each induce).
+    }
+}\\
 
 \section{Task 5}
 \noindent\fcolorbox{black}{lightgray}{
@@ -57,8 +78,23 @@ The whole equation can be then expressed in closed form as
 \end{equation}
 
 \section{Task 6}
+\noindent\fcolorbox{black}{lightgray}{
+    \parbox{\textwidth}{ \textbf{Task 6.} Use the software ${\tt CVX}$ to solve problem~\eqref{P:prob4}. After you solve the problem, do the following:
+    \begin{enumerate}[(a)]
+    \item plot the optimal positions of the robot from $t = 0$ to $t = T$, marking its positions at the appointed times $\tau_k$, for $1 \leq k \leq K$;
+    \item plot the optimal control signal $u(t)$, where $u(t) = ( u_1(t), u_2(t) )$, from $t = 0$ to $t = T-1$;
+    \item report how many times the optimal control signal changes from $t = 1$ to $t = T-1$; 
+    \item report the mean deviation from the waypoints (defined in~\eqref{meanwaydev});     
+    \item comment on the results from (a)-(d), as you compare them with those you obtained in Task 1. (Note that Task 1 considered waypoints, which can be seen as disks with radius zero.)
+    \end{enumerate}
+    }
+}\\
 
 \section{Task 7}
+\noindent\fcolorbox{black}{lightgray}{
+    \parbox{\textwidth}{ \textbf{Task 7.} Use the software ${\tt CVX}$ to solve problem~\eqref{P:prob5a}. Explain what happens.
+    }
+}\\
 
 \section{Task 8}
 The function $\phi$ outputs a zero if its argument is zero and outputs a one, otherwise. That is, we have $\phi\,:\,{\mathbf R}^2 \rightarrow {\mathbf R}$, with $$\phi(x) = \left\{ \begin{array}{ll} 0,  & \text{ if } x = 0, \\ 1, & \text{ if }x \neq 0. \end{array} \right.$$
@@ -92,7 +128,26 @@ As we can see above, this inequality is a contradiction for selected $x_{1}$, $x
 %\end{equation}
 %for all x, y $\in$ R and $0 \leq \alpha \leq 1$
 
+\section {Task 10}
+\noindent\fcolorbox{black}{lightgray}{
+    \parbox{\textwidth}{ \textbf{Task 9.} Use the software ${\tt CVX}$ to solve problem~\eqref{P:prob6}. After you solve the problem, do the following:
+    \begin{enumerate}[(a)]
+    \item plot the optimal positions of the robot from $t = 0$ to $t = T$, marking its positions at the appointed times $\tau_k$, for $1 \leq k \leq K$;
+    \item plot the optimal control signal $u(t)$, where $u(t) = ( u_1(t), u_2(t) )$, from $t = 0$ to $t = T-1$;
+    \item report how many waypoints are captured by the robot; consider that a waypoint $w_k$ is captured if the robot is sufficiently close to it at the appointed time $\tau_k$, namely, if $\left\| p( \tau_k) - w_k \right\|_2 \leq 10^{-6}$.
+    \end{enumerate}
+    }
+} \\
+
 \end{document}
+
+
+
+
+
+
+
+
 
 
 
@@ -372,7 +427,7 @@ In~\eqref{P:prob5a} the cost function is identically zero. That's because there 
 \noindent\fcolorbox{black}{lightgray}{
     \parbox{\textwidth}{ \textbf{Task 7.} Use the software ${\tt CVX}$ to solve problem~\eqref{P:prob5a}. Explain what happens.
     }
-    }
+}
 
 \paragraph{A formulation too hard to solve.} Another possible formulation for this problem is as follows:
 \begin{equation} \begin{array}[t]{ll} \underset{x, u}{\text{minimize}} & \sum_{k = 1}^K \phi\left( E x(\tau_k) - w_k \right)\\
