@@ -2,9 +2,9 @@
 % 1 - l2^2
 % 2 - l2
 % 3 - l1
-task = 2;
+task = 3;
 
-for i = 2
+for i = 0:6
     lambda = 10^(-3+i);
     U_max = 100;
     T = 80;
@@ -91,6 +91,8 @@ for i = 2
     plot(u(2,:));
 	title (sprintf('changed %d, dev %0.5f', count, meandev));
     hold(ax2,'off');    
+    filename = "figures/task" + task + "/" + task + "_" + (-3+i) + ".eps";
+    saveas(gcf, filename, 'epsc');
 end
 
 

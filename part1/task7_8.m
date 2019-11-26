@@ -2,7 +2,7 @@ task = 7;
 
 % Needs to be at least 39 to work
 % The motor is too weak to find a feasible solution
-U_max = 15;
+U_max = 39;
 T = 80;
 t = T+1;
 
