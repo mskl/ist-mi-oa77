@@ -16,6 +16,7 @@
 \usepackage{subfigure}
 \usepackage{xcolor}
 \usepackage{enumerate}
+\usepackage[outdir=./]{epstopdf}
 
 \bibliographystyle{alpha}
 
@@ -36,7 +37,12 @@
     \item report the mean deviation from the waypoints, defined as \begin{equation} \frac{1}{K} \sum_{k = 1}^K \left\| E x(\tau_k) - w_k \right\|_2, \label{meanwaydev} \end{equation} which tells us how much the third wish (waypoints) is ignored.
     \end{enumerate}
     }
-}\\
+}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{part1/figures/task1/1_0.eps}
+\end{figure}
 
 \section{Task 2}
 \noindent\fcolorbox{black}{lightgray}{
