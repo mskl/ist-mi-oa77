@@ -5,8 +5,8 @@
 
 results = [];
 
-for task = 1
-    for i = 2
+for task = 1:3
+    for i = 0:7
         lambda = 10^(-3+i);
         U_max = 100;
         T = 80;
