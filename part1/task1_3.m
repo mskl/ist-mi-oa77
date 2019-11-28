@@ -103,7 +103,8 @@ for task = 1:3
         set(ha(1),'position',[.51 .04 .47 .92]);
         set(ha(2),'position',[.02 .04 .47 .92]);
         legend(ax2, {'u_1(t)','u_2(t)'});
-        
+        fig.PaperSize = [fig.PaperPosition(3) fig.PaperPosition(4)];
+
         filename = "figures/task" + task + "/" + task + "_" + (-3+i) + ".pdf";        
         print(fig, filename, '-dpdf', '-bestfit');
     end
