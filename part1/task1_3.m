@@ -5,7 +5,7 @@
 
 results = [];
 
-for task = 3
+for task = 1
     for i = 2
         lambda = 10^(-3+i);
         U_max = 100;
@@ -77,31 +77,35 @@ for task = 3
         
         % Save the values
         results = [results; [(-3+i), count, meandev]];
-
-        % Plot the figures
-        figure1=figure("Position", [50, 50, 1000, 400]);
-
-        % Plot the waypoints and the robot position
+        
+        fig = figure('Units','Pixels', "Position", [0, 0, 1000, 450]);
         ax1 = subplot(1,2,1);
         hold(ax1,'on');
+        grid on;
         scatter(p_initial(1), p_initial(2), "filled", 'd')
         scatter(p_final(1), p_final(2), "filled", 'd')
         scatter(x(1, :), x(2, :), 'o', 'MarkerEdgeColor', "blue");
         scatter(w(1, :), w(2, :), 300, "square", "MarkerEdgeColor", "red", 'LineWidth', 2);
         scatter(x(1, tau+1), x(2, tau+1), 200, 'o', 'MarkerEdgeColor', "magenta", 'LineWidth', 1.5);  
-        title (sprintf('Pos for lambda = pow(10, %d)',(-3+i)));
+        axis([-2 34 -17 15])
+        title(sprintf('Pos for lambda = 10\\^%d', (-3+i)));
         hold(ax1,'off');
 
-        % Plot the control signal
         ax2 = subplot(1,2,2);
         hold(ax2,'on');
+        grid on;
         plot(u(1,:));
         plot(u(2,:));
         title (sprintf('changed %d, dev %0.5f', count, meandev));
         hold(ax2,'off');    
-        filename = "figures/task" + task + "/" + task + "_" + (-3+i) + ".png";
-        saveas(gcf, filename);
-        % print(filename,'-dpdf','-bestfit')
+        
+        ha=get(gcf,'children');
+        set(ha(1),'position',[.51 .04 .47 .92]);
+        set(ha(2),'position',[.02 .04 .47 .92]);
+        legend(ax2, {'u_1(t)','u_2(t)'});
+        
+        filename = "figures/task" + task + "/" + task + "_" + (-3+i) + ".pdf";        
+        print(fig, filename, '-dpdf', '-bestfit');
     end
 end
 
