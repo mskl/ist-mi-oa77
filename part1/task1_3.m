@@ -3,8 +3,10 @@
 % 2 - l2
 % 3 - l1
 
-for task = 1:3
-    for i = 0:6
+results = [];
+
+for task = 3
+    for i = 2
         lambda = 10^(-3+i);
         U_max = 100;
         T = 80;
@@ -65,10 +67,13 @@ for task = 1:3
             cvx_end
 
         % Check how many times the control signal changes 
-        count = control_signal_changes(u);
+        count = control_signal_changes(u, T);
 
         % Get the mean deviation
         meandev = sum(vecnorm(x(1:2, tau+1) - w, 2, 1)) / length(tau);
+        
+        % Save the values
+        results = [results; [(-3+i), count, meandev]];
 
         % Plot the figures
         figure1=figure("Position", [50, 50, 1000, 400]);
@@ -96,7 +101,4 @@ for task = 1:3
         % print(filename,'-dpdf','-bestfit')
     end
 end
-
-
-
 
