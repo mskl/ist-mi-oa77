@@ -6,7 +6,7 @@
 >[projectpart1.pdf](projectpart1.pdf)
 
 **Part 2 of the project**
-> TODO
+>[projectpart2.pdf](projectpart2.pdf)
 
 **Part 3 of the project**
 > TODO
