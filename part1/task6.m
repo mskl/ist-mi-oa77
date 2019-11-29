@@ -89,5 +89,5 @@ set(ha(2),'position',[.02 .04 .47 .92]);
 legend(ax2, {'u_1(t)','u_2(t)'});
 fig.PaperSize = [fig.PaperPosition(3) fig.PaperPosition(4)];
 
-filename = "figures/task6.pdf";        
+filename = "figures/task_6.pdf";        
 print(fig, filename, '-dpdf', '-bestfit');
