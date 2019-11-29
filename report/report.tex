@@ -319,13 +319,101 @@ As we can see above, this inequality is a contradiction for selected $x_{1}$, $x
     \item report how many waypoints are captured by the robot; consider that a waypoint $w_k$ is captured if the robot is sufficiently close to it at the appointed time $\tau_k$, namely, if $\left\| p( \tau_k) - w_k \right\|_2 \leq 10^{-6}$.
     \end{enumerate}
     }
-} \\
+}\\
+
+The minimized function can be expressed in CVX as shown on Listing \ref{listing:task9:cvx}.
+
+\begin{lstlisting}[language=Matlab, caption=CVX code for task 9., label=listing:task9:cvx]
+minimize(sum(vec_sqr_sum(E*x(:,tau+1) - w)));
+\end{lstlisting}
+
+The robot positions are shown in the Figure \ref{fig:task9:graph}. The robot did not capture any point.
+
+\begin{figure}[!htb]
+    \caption{Robot positions and control signal for Task 9.}
+    \label{fig:task9:graph}
+    \centering    
+    \includegraphics[width=1\linewidth]{part1/figures/task_9.pdf}
+\end{figure}
 
 \section {Task 10}
 \noindent\fcolorbox{black}{lightgray}{
     \parbox{\textwidth}{ \textbf{Task 10.} Redo task 9 for problem~\eqref{P:prob7}.
     }
+}\\
+
+The minimized function can be expressed in CVX as shown on Listing \ref{listing:task10:cvx}. The robot has captured a single point along its journey.
+
+\begin{lstlisting}[language=Matlab, caption=CVX code for task 10., label=listing:task10:cvx]
+minimize(sum(norms(E*x(:,tau+1) - w, 2)));
+\end{lstlisting}
+
+The resulting robot positions are visualized in the Figure \ref{fig:task10:graph}.
+
+\begin{figure}[!htb]
+    \caption{Robot positions and control signal for Task 10.}
+    \label{fig:task10:graph}
+    \centering    
+    \includegraphics[width=1\linewidth]{part1/figures/task_10.pdf}
+\end{figure}
+
+\section {Task 11}
+\noindent\fcolorbox{black}{lightgray}{
+    \parbox{\textwidth}{ \textbf{Task 11.} Apply the reweighting  technique $M$ times, with $M = 10$; that is, solve problem problem~\eqref{P:prob8} for $m = 0, 1, \ldots, M-1$. For each value of $m$, do the following:
+     \begin{enumerate}[(a)]
+    \item plot the positions of the robot in $x^{(m)}$ from $t = 0$ to $t = T$, marking its positions at the appointed times $\tau_k$, for $1 \leq k \leq K$;
+    \item plot the control signal $u^{(m)}(t)$, where $u^{(m)}(t) = \left( u_1^{(m)}(t), u_2^{(m)}(t) \right)$, from $t = 0$ to $t = T-1$;
+    \item report how many waypoints are captured by the robot.
+    \end{enumerate}}
 }
+
+
+
+\begin{table}[]
+\caption{Results of the reweighting technique in Task 11.}
+\label{table:task11:results}
+\centering
+\begin{tabular}{l|ll}
+m & captured & mean dev. \\
+\hline
+0 & 1 & 2.4157 \\
+1 & 2 & 2.4567 \\
+2 & 2 & 2.5737 \\
+3 & 3 & 2.7362 \\
+4 & 3 & 2.7355 \\
+5 & 3 & 2.7355 \\
+6 & 3 & 2.7355 \\
+7 & 3 & 2.7355 \\
+8 & 3 & 2.7355 \\
+9 & 3 & 2.7355
+\end{tabular}
+\end{table}
+
+\begin{figure}[!htb]
+\caption{Robot positions and control signal for Task 11.}
+\label{fig:task11:graphs}
+\begin{subfigure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{part1/figures/task/3_-3.pdf}\hspace{0em}
+    \includegraphics[width=0.5\linewidth]{part1/figures/task3/3_-2.pdf}
+\end{subfigure}
+\begin{subfigure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{part1/figures/task3/3_0.pdf}\hspace{0em}
+    \includegraphics[width=0.5\linewidth]{part1/figures/task3/3_1.pdf}
+\end{subfigure}
+\begin{subfigure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{part1/figures/task3/3_2.pdf}\hspace{0em}
+    \includegraphics[width=0.5\linewidth]{part1/figures/task3/3_3.pdf}
+\end{subfigure}
+\end{figure}
+
+\section {Task 12}
+\noindent\fcolorbox{black}{lightgray}{
+    \parbox{\textwidth}{ \textbf{Task 12.} What's the role of the weights in~\eqref{P:prob8}?
+}}\\
+
 
 \end{document}
 
