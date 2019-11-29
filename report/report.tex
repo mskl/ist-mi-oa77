@@ -6,7 +6,9 @@
 \usepackage{amsfonts}
 \usepackage{verbatim}
 \usepackage{mathtools}
+\usepackage{listings}
 \usepackage{scrextend}
+\usepackage{hyperref}
 \usepackage[small,bf]{caption}
 \usepackage[framed,numbered]{mcode}
 \usepackage[applemac]{inputenc}
@@ -17,7 +19,6 @@
 \usepackage{xcolor}
 \usepackage{enumerate}
 \usepackage[outdir=./]{epstopdf}
-
 
 \bibliographystyle{alpha}
 
@@ -248,17 +249,48 @@ If the result of $\left\|p - c\right\|_2 - r$ is negative, the point is within t
 
 \section{Task 7}
 \noindent\fcolorbox{black}{lightgray}{
-    \parbox{\textwidth}{ \textbf{Task 7.} Use the software ${\tt CVX}$ to solve problem~\eqref{P:prob5a}. Explain what happens.
-    }
-}\\
+    \parbox{\textwidth}{ \textbf{Task 7.} Use the software ${\tt CVX}$ to solve problem~\eqref{P:prob5a}. Explain what happens.}
+}
+
+We implemented the task 7 in CVX code as shown in the listing \ref{listing:task7:cvx}. The variables are same as in the previous exercises with the exception of $\text{U\_Max}=15$.
+
+\begin{lstlisting}[language=Matlab, caption=CVX code for task 7., label=listing:task7:cvx]
+cvx_begin
+    variable x(4,T+1);
+    variable u(2,T);
+    minimize(0);
+    subject to
+        % Initial and end speed need to be 0
+        x(:,1)     == [p_initial; [0; 0]];
+        x(:,T+1)   == [p_final;   [0; 0]];
+        % Make sure that the robot moves using the constrains
+        x(:,2:T+1) == A*x(:,1:T) + B*u(:,1:T);
+        % Check the actuator force size
+        for ux = u
+            norm(ux, 2) <= U_max; 
+        end
+        % Enforce the correct positions of the robot
+        for ti = 1:length(tau)
+            E*x(:, tau(ti)) ==  w(:, ti);
+        end
+cvx_end
+\end{lstlisting}
+
+The CVX tries to solve this task, but fails to do so and reports the following:
+\begin{lstlisting}
+Status: Infeasible
+Optimal value (cvx_optval): +Inf
+\end{lstlisting}
+
+This indicates, that CVX has not found a feasible solution to the given constrains. This is likely due to the actuator force $\text{U\_Max}=15$ being too low. 
+
+We have investigated setting the \text{U\_Max} as another CVX variable and optimizing it with \lstinline{minimize(U_max)} which returns $38.8989$. We can see, that with value of $\text{U\_Max}=38.8989$ this feasibility problem has a solution.
 
 \section{Task 8}
 The function $\phi$ outputs a zero if its argument is zero and outputs a one, otherwise. That is, we have $\phi\,:\,{\mathbf R}^2 \rightarrow {\mathbf R}$, with $$\phi(x) = \left\{ \begin{array}{ll} 0,  & \text{ if } x = 0, \\ 1, & \text{ if }x \neq 0. \end{array} \right.$$
 
 \noindent\fcolorbox{black}{lightgray}{
-    \parbox{\textwidth}{ \textbf{Task 8.} Show that the function $\phi$ is nonconvex.
-    
-    }
+    \parbox{\textwidth}{ \textbf{Task 8.} Show that the function $\phi$ is nonconvex.}
 }\\
 
 \begin{equation}
@@ -277,12 +309,6 @@ Function f is convex if for any two points $x_{1}, x_{2}$ ant $t\in[0, 1]$ the a
 \end{equation}
 
 As we can see above, this inequality is a contradiction for selected $x_{1}$, $x_{2}$ and t. Since $\phi$ does not fulfill the requirements for a convex function, we conclude that it is non convex.
-
-%f : $R^{n} \rightarrow R$ is convex if
-%\begin{equation}
-%	f ((1 - \alpha)x + \alpha y) \leq (1 - \alpha)f (x) + \alpha f (y)
-%\end{equation}
-%for all x, y $\in$ R and $0 \leq \alpha \leq 1$
 
 \section {Task 9}
 \noindent\fcolorbox{black}{lightgray}{
