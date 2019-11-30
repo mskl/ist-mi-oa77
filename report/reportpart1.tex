@@ -1,13 +1,13 @@
 \section{Task 1}
-\noindent\fcolorbox{black}{lightgray}{
-\parbox{\textwidth}{ \textbf{Task 1.} Use  the software {\tt CVX} from {\tt http://cvxr.com/cvx} to solve problem~\eqref{prob1} for $\lambda \in \{ 10^{-3}, 10^{-2}, 10^{-1}, 10^0, 10^1, 10^2, 10^3 \}$. So, you solve $7$ problems (one per value of $\lambda$ in the list). After each problem is solved, do the following: \begin{enumerate}[(a)]
-\item plot the optimal positions of the robot from $t = 0$ to $t = T$, marking its positions at the appointed times $\tau_k$, for $1 \leq k \leq K$;
-\item plot the optimal control signal $u(t)$, where $u(t) = ( u_1(t), u_2(t) )$, from $t = 0$ to $t = T-1$;
-\item report how many times the optimal control signal changes from $t = 1$ to $t = T-1$: we say that the control signal changes at time $t$ if $\left\| u(t) - u(t-1) \right\|_2 > 10^{-6}$; this tells us how much the fourth wish of a simple control is ignored;
-\item report the mean deviation from the waypoints, defined as \begin{equation} \frac{1}{K} \sum_{k = 1}^K \left\| E x(\tau_k) - w_k \right\|_2, \label{meanwaydev} \end{equation} which tells us how much the third wish (waypoints) is ignored.
-\end{enumerate}
-}
-}
+%\noindent\fcolorbox{black}{lightgray}{
+%\parbox{\textwidth}{ \textbf{Task 1.} Use  the software {\tt CVX} from {\tt http://cvxr.com/cvx} to solve problem~\eqref{prob1} for $\lambda \in \{ 10^{-3}, 10^{-2}, 10^{-1}, 10^0, 10^1, 10^2, 10^3 \}$. So, you solve $7$ problems (one per value of $\lambda$ in the list). After each problem is solved, do the following: \begin{enumerate}[(a)]
+%\item plot the optimal positions of the robot from $t = 0$ to $t = T$, marking its positions at the appointed times $\tau_k$, for $1 \leq k \leq K$;
+%\item plot the optimal control signal $u(t)$, where $u(t) = ( u_1(t), u_2(t) )$, from $t = 0$ to $t = T-1$;
+%\item report how many times the optimal control signal changes from $t = 1$ to $t = T-1$: we say that the control signal changes at time $t$ if $\left\| u(t) - u(t-1) \right\|_2 > 10^{-6}$; this tells us how much the fourth wish of a simple control is ignored;
+%\item report the mean deviation from the waypoints, defined as \begin{equation} \frac{1}{K} \sum_{k = 1}^K \left\| E x(\tau_k) - w_k \right\|_2, \label{meanwaydev} \end{equation} which tells us how much the third wish (waypoints) is ignored.
+%\end{enumerate}
+%}
+%}
 
 \begin{figure}[!htb]
 \caption{Robot positions and control signal for Task 1.}
@@ -37,10 +37,10 @@
 \end{figure}
 
 \section{Task 2}
-\noindent\fcolorbox{black}{lightgray}{
-    \parbox{\textwidth}{ \textbf{Task 2.} Redo task 1 for the optimization problem~\eqref{prob2}. 
-    }
-}
+%\noindent\fcolorbox{black}{lightgray}{
+%    \parbox{\textwidth}{ \textbf{Task 2.} Redo task 1 for the optimization problem~\eqref{prob2}. 
+%    }
+%}
 
 \begin{figure}[!htb]
 \caption{Robot positions and control signal for Task 2.}
@@ -70,10 +70,10 @@
 \end{figure}
 
 \section{Task 3}
-\noindent\fcolorbox{black}{lightgray}{
-    \parbox{\textwidth}{ \textbf{Task 3.} Redo task 1 for the optimization problem~\eqref{prob3}. 
-    }
-}
+%\noindent\fcolorbox{black}{lightgray}{
+%    \parbox{\textwidth}{ \textbf{Task 3.} Redo task 1 for the optimization problem~\eqref{prob3}. 
+%    }
+%}
 
 \begin{figure}[!htb]
 \caption{Robot positions and control signal for Task 3.}
@@ -103,10 +103,10 @@
 \end{figure}
 
 \section{Task 4}
-\noindent\fcolorbox{black}{lightgray}{
-    \parbox{\textwidth}{ \textbf{Task 4.} Comment on what you have observed from Tasks 1 to 3 (for example, compare the impact of the three regularizers on the optimal control signal that they each induce).
-    }
-}
+%\noindent\fcolorbox{black}{lightgray}{
+%    \parbox{\textwidth}{ \textbf{Task 4.} Comment on what you have observed from Tasks 1 to 3 (for example, compare the impact of the three regularizers on the optimal control signal that they each induce).
+%    }
+%}
 
 \begin{table}[!htb]
     \begin{minipage}{.33\linewidth}
@@ -160,10 +160,10 @@
 \end{table}
 
 \section{Task 5}
-\noindent\fcolorbox{black}{lightgray}{
-    \parbox{\textwidth}{ \textbf{Task 5.} Using simple geometric arguments, give a  closed-form expression for $d\left( p,D(c,r) \right)$.
-    }
-} \\
+%\noindent\fcolorbox{black}{lightgray}{
+%    \parbox{\textwidth}{ \textbf{Task 5.} Using simple geometric arguments, give a  closed-form expression for $d\left( p,D(c,r) \right)$.
+%    }
+%}
 
 Distance between point $p$ and disc $D\left(c, r\right)$ is defined as:
 \begin{equation}
@@ -186,17 +186,17 @@ If the result of $\left\|p - c\right\|_2 - r$ is negative, the point is within t
 \end{equation}
 
 \section{Task 6}
-\noindent\fcolorbox{black}{lightgray}{
-    \parbox{\textwidth}{ \textbf{Task 6.} Use the software ${\tt CVX}$ to solve problem~\eqref{P:prob4}. After you solve the problem, do the following:
-    \begin{enumerate}[(a)]
-    \item plot the optimal positions of the robot from $t = 0$ to $t = T$, marking its positions at the appointed times $\tau_k$, for $1 \leq k \leq K$;
-    \item plot the optimal control signal $u(t)$, where $u(t) = ( u_1(t), u_2(t) )$, from $t = 0$ to $t = T-1$;
-    \item report how many times the optimal control signal changes from $t = 1$ to $t = T-1$; 
-    \item report the mean deviation from the waypoints (defined in~\eqref{meanwaydev});     
-    \item comment on the results from (a)-(d), as you compare them with those you obtained in Task 1. (Note that Task 1 considered waypoints, which can be seen as disks with radius zero.)
-    \end{enumerate}
-    }
-}
+%\noindent\fcolorbox{black}{lightgray}{
+%    \parbox{\textwidth}{ \textbf{Task 6.} Use the software ${\tt CVX}$ to solve problem~\eqref{P:prob4}. After you solve the problem, do the following:
+%    \begin{enumerate}[(a)]
+%    \item plot the optimal positions of the robot from $t = 0$ to $t = T$, marking its positions at the appointed times $\tau_k$, for $1 \leq k \leq K$;
+%    \item plot the optimal control signal $u(t)$, where $u(t) = ( u_1(t), u_2(t) )$, from $t = 0$ to $t = T-1$;
+%    \item report how many times the optimal control signal changes from $t = 1$ to $t = T-1$; 
+%    \item report the mean deviation from the waypoints (defined in~\eqref{meanwaydev});     
+%    \item comment on the results from (a)-(d), as you compare them with those you obtained in Task 1. (Note that Task 1 considered waypoints, which can be seen as disks with radius zero.)
+%    \end{enumerate}
+%    }
+%}
 
 \begin{table}[!htb]
     \centering
@@ -216,9 +216,9 @@ If the result of $\left\|p - c\right\|_2 - r$ is negative, the point is within t
 \end{figure}
 
 \section{Task 7}
-\noindent\fcolorbox{black}{lightgray}{
-    \parbox{\textwidth}{ \textbf{Task 7.} Use the software ${\tt CVX}$ to solve problem~\eqref{P:prob5a}. Explain what happens.}
-}
+%\noindent\fcolorbox{black}{lightgray}{
+%    \parbox{\textwidth}{ \textbf{Task 7.} Use the software ${\tt CVX}$ to solve problem~\eqref{P:prob5a}. Explain what happens.}
+%}
 
 We implemented the task 7 in CVX code as shown in the listing \ref{listing:task7:cvx}. The variables are same as in the previous exercises with the exception of $\text{U\_Max}=15$.
 
@@ -257,9 +257,9 @@ We have investigated setting the \text{U\_Max} as another CVX variable and optim
 \section{Task 8}
 The function $\phi$ outputs a zero if its argument is zero and outputs a one, otherwise. That is, we have $\phi\,:\,{\mathbf R}^2 \rightarrow {\mathbf R}$, with $$\phi(x) = \left\{ \begin{array}{ll} 0,  & \text{ if } x = 0, \\ 1, & \text{ if }x \neq 0. \end{array} \right.$$
 
-\noindent\fcolorbox{black}{lightgray}{
-    \parbox{\textwidth}{ \textbf{Task 8.} Show that the function $\phi$ is nonconvex.}
-}\\
+%\noindent\fcolorbox{black}{lightgray}{
+%    \parbox{\textwidth}{ \textbf{Task 8.} Show that the function $\phi$ is nonconvex.}
+%}
 
 \begin{equation}
 	\forall x_1, x_2 \in X, \forall t \in [0, 1]: \qquad f(tx_1+(1-t)x_2)\leq t f(x_1)+(1-t)f(x_2)
@@ -279,15 +279,15 @@ Function f is convex if for any two points $x_{1}, x_{2}$ ant $t\in[0, 1]$ the a
 As we can see above, this inequality is a contradiction for selected $x_{1}$, $x_{2}$ and t. Since $\phi$ does not fulfill the requirements for a convex function, we conclude that it is non convex.
 
 \section {Task 9}
-\noindent\fcolorbox{black}{lightgray}{
-    \parbox{\textwidth}{ \textbf{Task 9.} Use the software ${\tt CVX}$ to solve problem~\eqref{P:prob6}. After you solve the problem, do the following:
-    \begin{enumerate}[(a)]
-    \item plot the optimal positions of the robot from $t = 0$ to $t = T$, marking its positions at the appointed times $\tau_k$, for $1 \leq k \leq K$;
-    \item plot the optimal control signal $u(t)$, where $u(t) = ( u_1(t), u_2(t) )$, from $t = 0$ to $t = T-1$;
-    \item report how many waypoints are captured by the robot; consider that a waypoint $w_k$ is captured if the robot is sufficiently close to it at the appointed time $\tau_k$, namely, if $\left\| p( \tau_k) - w_k \right\|_2 \leq 10^{-6}$.
-    \end{enumerate}
-    }
-}\\
+%\noindent\fcolorbox{black}{lightgray}{
+%    \parbox{\textwidth}{ \textbf{Task 9.} Use the software ${\tt CVX}$ to solve problem~\eqref{P:prob6}. After you solve the problem, do the following:
+%    \begin{enumerate}[(a)]
+%    \item plot the optimal positions of the robot from $t = 0$ to $t = T$, marking its positions at the appointed times $\tau_k$, for $1 \leq k \leq K$;
+%    \item plot the optimal control signal $u(t)$, where $u(t) = ( u_1(t), u_2(t) )$, from $t = 0$ to $t = T-1$;
+%    \item report how many waypoints are captured by the robot; consider that a waypoint $w_k$ is captured if the robot is sufficiently close to it at the appointed time $\tau_k$, namely, if $\left\| p( \tau_k) - w_k \right\|_2 \leq 10^{-6}$.
+%    \end{enumerate}
+%    }
+%}
 
 The minimized function can be expressed in CVX as shown on Listing \ref{listing:task9:cvx}.
 
@@ -305,10 +305,10 @@ The robot positions are shown in the Figure \ref{fig:task9:graph}. The robot did
 \end{figure}
 
 \section {Task 10}
-\noindent\fcolorbox{black}{lightgray}{
-    \parbox{\textwidth}{ \textbf{Task 10.} Redo task 9 for problem~\eqref{P:prob7}.
-    }
-}\\
+%\noindent\fcolorbox{black}{lightgray}{
+%    \parbox{\textwidth}{ \textbf{Task 10.} Redo task 9 for problem~\eqref{P:prob7}.
+%    }
+%}
 
 The minimized function can be expressed in CVX as shown on Listing \ref{listing:task10:cvx}. The robot has captured a single point along its journey.
 
@@ -326,16 +326,14 @@ The resulting robot positions are visualized in the Figure \ref{fig:task10:graph
 \end{figure}
 
 \section {Task 11}
-\noindent\fcolorbox{black}{lightgray}{
-    \parbox{\textwidth}{ \textbf{Task 11.} Apply the reweighting  technique $M$ times, with $M = 10$; that is, solve problem problem~\eqref{P:prob8} for $m = 0, 1, \ldots, M-1$. For each value of $m$, do the following:
-     \begin{enumerate}[(a)]
-    \item plot the positions of the robot in $x^{(m)}$ from $t = 0$ to $t = T$, marking its positions at the appointed times $\tau_k$, for $1 \leq k \leq K$;
-    \item plot the control signal $u^{(m)}(t)$, where $u^{(m)}(t) = \left( u_1^{(m)}(t), u_2^{(m)}(t) \right)$, from $t = 0$ to $t = T-1$;
-    \item report how many waypoints are captured by the robot.
-    \end{enumerate}}
-}
-
-
+%\noindent\fcolorbox{black}{lightgray}{
+%    \parbox{\textwidth}{ \textbf{Task 11.} Apply the reweighting  technique $M$ times, with $M = 10$; that is, solve problem problem~\eqref{P:prob8} for $m = 0, 1, \ldots, M-1$. For each value of $m$, do the following:
+%     \begin{enumerate}[(a)]
+%    \item plot the positions of the robot in $x^{(m)}$ from $t = 0$ to $t = T$, marking its positions at the appointed times $\tau_k$, for $1 \leq k \leq K$;
+%    \item plot the control signal $u^{(m)}(t)$, where $u^{(m)}(t) = \left( u_1^{(m)}(t), u_2^{(m)}(t) \right)$, from $t = 0$ to $t = T-1$;
+%    \item report how many waypoints are captured by the robot.
+%    \end{enumerate}}
+%}
 
 \begin{table}[]
 \caption{Results of the reweighting technique in Task 11.}
@@ -388,9 +386,9 @@ m & captured & mean dev. \\
 \end{figure}
 
 \section {Task 12}
-\noindent\fcolorbox{black}{lightgray}{
-    \parbox{\textwidth}{ \textbf{Task 12.} What's the role of the weights in~\eqref{P:prob8}?
-}}
+%\noindent\fcolorbox{black}{lightgray}{
+%    \parbox{\textwidth}{ \textbf{Task 12.} What's the role of the weights in~\eqref{P:prob8}?
+%}}
 
 The optimizer tries to optimize the utility function of each waypoint divided by the previous value. The utility values for first 5 iterations are shown in \ref{task12:listing:results}.
 

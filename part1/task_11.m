@@ -20,6 +20,7 @@ T = 80;
 
 results = [];
 prev_x = zeros(4, T+1);
+nms = [];
 
 for m = [0:9]
     cvx_begin
@@ -87,7 +88,11 @@ for m = [0:9]
     fig.PaperSize = [fig.PaperPosition(3) fig.PaperPosition(4)];
 
     if m ~= -1
-        filename = "figures/task11/task_11_" + m + ".pdf";        
-        print(fig, filename, '-dpdf', '-bestfit');
+        %filename = "figures/task11/task_11_" + m + ".pdf";        
+        %print(fig, filename, '-dpdf', '-bestfit');
     end
+    
+    nms = [nms ; norms(E*x(:,tau+1) - w)];
 end
+
+results
