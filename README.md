@@ -9,7 +9,7 @@
 >[projectpart2.pdf](projectpart2.pdf)
 
 **Part 3 of the project**
-> TODO
+> [projectpart3.pdf](projectpart3.pdf)
 
 
  # How to use OverLeaf with git
