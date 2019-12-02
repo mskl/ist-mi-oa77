@@ -9,6 +9,69 @@
 %}
 %}
 
+The code used to solve the task 1 is described in the Listing \ref{task1:code}. \lstinline{vec_sqr_sum} function is described in the Listing \ref{task1:code:vecsqrsum}. The results of the task 1 for $\lambda \in \{ 10^{-3}, 10^{-2}, 10^{-1}, 10^0, 10^1, 10^2, 10^3 \}$ are described in the Table \ref{task1:table:results}.
+
+\begin{lstlisting}[caption=Code for the Task 1., label=task1:code]
+tau = [10 25 30 40 50 60];
+w   = [10 20 30 30 20 10;
+       10 10 10 0  0 -10];
+A   = [1.0 0.0 0.1 0.0;
+       0.0 1.0 0.0 0.1;
+       0.0 0.0 0.9 0.0;
+       0.0 0.0 0.0 0.9];
+B   = [0.0 0.0;
+       0.0 0.0;
+       0.1 0.0;
+       0.0 0.1];
+E   = [1 0 0 0; 
+       0 1 0 0];
+p_initial = [ 0;   5];
+p_final   = [15; -15];
+U_max = 100;
+T = 80;
+
+for i = 0:7
+    lambda = 10^(-3+i);
+    cvx_begin
+        variable x(4,T+1);
+        variable u(2,T);
+
+        % Minimize the objective function
+        delta = u(:, 2:T) - u(:, 1:T-1);     
+        minimize(sum(vec_sqr_sum(E*x(:,tau+1) - w))... 
+            + lambda*sum(sum_square(delta))) 
+
+        subject to
+            % Initial and end speed need to be 0
+            x(:,1)     == [p_initial; [0; 0]]
+            x(:,T+1)   == [p_final;   [0; 0]]
+            % Make sure that the robot moves using the constrains
+            x(:,2:T+1) == A*x(:,1:T) + B*u(:,1:T);
+            % Check the actuator force size
+            for ux = u
+                norm(ux, 2) <= U_max; 
+            end
+        cvx_end
+
+    % Check how many times the control signal changes 
+    count = control_signal_changes(u, T);
+
+    % Get the mean deviation
+    meandev = sum(vecnorm(x(1:2, tau+1) - w, 2, 1)) / length(tau);
+end
+\end{lstlisting}
+
+\begin{lstlisting}[label=task1:code:vecsqrsum, caption=vec\_sqr\_sum function used in the Task 1., float=!htb]
+function [norm_col] = vec_sqr_sum(A)
+    % vec_sqr_sum squares elementwise and sums all the columns for a matrix 
+    A = A.^2;
+    for i = 1:length(A(1,:))
+        aux = sum(A(:,i));
+        norm_col(i) = aux;
+    end
+end
+\end{lstlisting}
+
 \begin{figure}[!htb]
 \caption{Robot positions and control signal for Task 1.}
 \label{fig:task1:graphs}
@@ -41,6 +104,12 @@
 %    \parbox{\textwidth}{ \textbf{Task 2.} Redo task 1 for the optimization problem~\eqref{prob2}. 
 %    }
 %}
+Code utilized in the task 2 is same as in Task 1, except for the objective function, which is defined as described in Listing \ref{task2:code:objective}. The results are described in the Table \ref{task2:table:results}.
+
+\begin{lstlisting}[label=task2:code:objective, caption=Objective function used in Task 2., float=!htb]
+minimize(sum(vec_sqr_sum(E*x(:,tau+1) - w))...
+    + lambda*sum(norms(delta, 2)));
+\end{lstlisting}
 
 \begin{figure}[!htb]
 \caption{Robot positions and control signal for Task 2.}
@@ -72,8 +141,14 @@
 \section{Task 3}
 %\noindent\fcolorbox{black}{lightgray}{
 %    \parbox{\textwidth}{ \textbf{Task 3.} Redo task 1 for the optimization problem~\eqref{prob3}. 
-%    }
-%}
+% }}
+
+\begin{lstlisting}[caption=Objective function used in Task 3., label=task3:code:objective, float=!htb]
+minimize(sum(vec_sqr_sum(E*x(:,tau+1) - w)...
+                ) + lambda*sum(norms(delta, 1)));
+\end{lstlisting}
+
+Code utilized in the task 3 is same as in Task 1, except for the objective function, which is defined as described in Listing \ref{task3:code:objective}. The results are described in the Table \ref{task3:table:results}.
 
 \begin{figure}[!htb]
 \caption{Robot positions and control signal for Task 3.}
@@ -108,10 +183,13 @@
 %    }
 %}
 
+
 \begin{table}[!htb]
+    \caption*{Mean deviation and effect of the regularizer based on the $\lambda$ in Tasks 1 to 3.}
     \begin{minipage}{.33\linewidth}
         \centering
-        \caption{Task 1 results}
+        \caption{Task 1 results.}
+        \label{task1:table:results}
         \begin{tabular}{c|cr}
             $\lambda$ & changes & m. dev. \\
             \hline
@@ -127,7 +205,8 @@
     \end{minipage}%
     \begin{minipage}{.33\linewidth}
       \centering
-        \caption{Task 2 results}
+        \caption{Task 2 results.}
+        \label{task2:table:results}
         \begin{tabular}{c|cr}
             $\lambda$ & changes & m. dev. \\
             \hline
@@ -143,7 +222,8 @@
     \end{minipage}%
     \begin{minipage}{.33\linewidth}
       \centering
-        \caption{Task 3 results}
+        \caption{Task 3 results.}
+        \label{task3:table:results}
         \begin{tabular}{c|cr}
             $\lambda$ & changes & m. dev. \\
             \hline
@@ -212,7 +292,7 @@ If the result of $\left\|p - c\right\|_2 - r$ is negative, the point is within t
     \caption{Robot positions and control signal for Task 6.}
     \label{fig:task6:graph}
     \centering    
-    \includegraphics[width=1\linewidth]{part1/figures/task6.pdf}
+    \includegraphics[width=1\linewidth]{part1/figures/task_6.pdf}
 \end{figure}
 
 \section{Task 7}
