@@ -193,14 +193,14 @@ Code utilized in the task 3 is same as in Task 1, except for the objective funct
         \begin{tabular}{c|cr}
             $\lambda$ & changes & m. dev. \\
             \hline
-            -3 & 79 & 0.1257 \\
-            -2 & 79 & 0.8242 \\
-            -1 & 79 & 2.1958 \\
-            0 & 79 & 3.6826 \\
-            1 & 79 & 5.6317 \\
-            2 & 79 & 10.9041 \\
-            3 & 79 & 15.3304 \\
-            4 & 79 & 16.1303
+            $10^{-3}$ & 79 & 0.1257 \\
+            $10^{-2}$ & 79 & 0.8242 \\
+            $10^{-1}$ & 79 & 2.1958 \\
+            $10^{+0}$ & 79 & 3.6826 \\
+            $10^{+1}$ & 79 & 5.6317 \\
+            $10^{+2}$ & 79 & 10.9041 \\
+            $10^{+3}$ & 79 & 15.3304 \\
+            $10^{+4}$ & 79 & 16.1303
         \end{tabular}
     \end{minipage}%
     \begin{minipage}{.33\linewidth}
@@ -210,14 +210,14 @@ Code utilized in the task 3 is same as in Task 1, except for the objective funct
         \begin{tabular}{c|cr}
             $\lambda$ & changes & m. dev. \\
             \hline
-            -3 & 10 & 0.0075 \\
-            -2 & 8 & 0.0747 \\
-            -1 & 11 & 0.7021 \\
-            0 & 5 & 2.8876 \\
-            1 & 4 & 5.3689 \\
-            2 & 3 & 12.5914 \\
-            3 & 1 & 16.2266 \\
-            4 & 2 & 16.2266
+            $10^{-3}$ & 10 & 0.0075 \\
+            $10^{-2}$ & 8 & 0.0747 \\
+            $10^{-1}$ & 11 & 0.7021 \\
+            $10^{+0}$ & 5 & 2.8876 \\
+            $10^{+1}$ & 4 & 5.3689 \\
+            $10^{+2}$ & 3 & 12.5914 \\
+            $10^{+3}$ & 1 & 16.2266 \\
+            $10^{+4}$ & 2 & 16.2266
         \end{tabular}
     \end{minipage}%
     \begin{minipage}{.33\linewidth}
@@ -227,17 +227,71 @@ Code utilized in the task 3 is same as in Task 1, except for the objective funct
         \begin{tabular}{c|cr}
             $\lambda$ & changes & m. dev. \\
             \hline
-            -3 & 13 & 0.0107 \\
-            -2 & 12 & 0.1055 \\
-            -1 & 14 & 0.8863 \\
-            0 & 11 & 2.8732 \\
-            1 & 6 & 5.4361 \\
-            2 & 2 & 13.0273 \\
-            3 & 2 & 16.0463 \\
-            4 & 2 & 16.2266
+            $10^{-3}$ & 13 & 0.0107 \\
+            $10^{-2}$ & 12 & 0.1055 \\
+            $10^{-1}$ & 14 & 0.8863 \\
+            $10^{+0} $ & 11 & 2.8732 \\
+            $10^{+1} $ & 6 & 5.4361 \\
+            $10^{+2} $ & 2 & 13.0273 \\
+            $10^{+3} $ & 2 & 16.0463 \\
+            $10^{+4} $ & 2 & 16.2266
         \end{tabular}
     \end{minipage} 
 \end{table}
+
+The objective function which we try to minimize in the tasks 1 to 3 consists of two part. The first part, common to all of three tasks measures how far away the robot is from the waypoints at given times defined as $\sum_{k = 1}^K \left\| E x( \tau_k ) - w_k \right\|_2^2$. 
+
+The difference between the first three tasks lies in the different regularizer which enforces the fourth wish (simple control) by penalizing the deviations of the control signal from its previous value. By changing the $\lambda$ parameter, we can change the importance of this wish. 
+
+% Command for putting a caption to an equation
+% \newcommand{\capequation}[1]{\begin{center} #1 \end{center}}
+
+\begin{itemize}
+    \item[\textbf{Task 1}] utilizes the squared L2 regularizer as shown in Equation \ref{task1:regularizer}. Benefit of using the squared L2 norm can be in easier computation, as no square root needs to be computed.
+    \item[\textbf{Task 2}] utilizes the L2 norm, described in Equation \ref{task2:regularizer}. This can be interpreted as a euclidean distance from the previous actuator vector to the current one.
+    \item[\textbf{Task 3}] relies on the L1 norm, as described in Equation \ref{task3:regularizer}. This norm is not differentiable at 0, however it induces a behavior which was called ``L1 magic'' at the lectures which can help in certain optimization cases.
+\end{itemize}
+
+As mentioned previously, by changing the $\lambda$ parameter, we can change the influence of the regularizer to the overall objective function. If the lambda becomes a large number, the loss function's bias shifts towards the regularizer which enforces least number of changes to the control signal.
+
+Effect of this behavior is shown in the Figure \ref{fig:task4:waypoint:dev}. The number of changes in the control signal does not change in the Figure \ref{fig:task4:changes}.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\linewidth]{part1/notebooks/task_1_2_3_waypoint_mean_dev.pdf}
+    \caption{Waypoint mean deviation for Tasks 1 to 3.}
+    \label{fig:task4:waypoint:dev}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\linewidth]{part1/notebooks/task_2_3_signal_changes.pdf}
+    \caption{Control signal changes for Tasks 2 and 3.}
+    \label{fig:task4:changes}
+\end{figure}
+
+\noindent
+\begin{minipage}{.33\linewidth}
+    % \capequation{Task 1: squared l2 norm}
+    \begin{equation}
+        \label{task1:regularizer}
+        \sum_{t = 1}^{T-1} \left\| u(t) - u(t-1) \right\|_2^2
+    \end{equation}
+\end{minipage}
+\begin{minipage}{.33\linewidth}
+    % \capequation{Task 2: l2 norm}
+    \begin{equation}
+        \label{task2:regularizer}
+        \sum_{t = 1}^{T-1} \left\| u(t) - u(t-1) \right\|_2
+    \end{equation}
+\end{minipage}
+\begin{minipage}{.33\linewidth}
+    % \capequation{Task 3: l1 norm}
+    \begin{equation}
+        \label{task3:regularizer}
+        \sum_{t = 1}^{T-1} \left\| u(t) - u(t-1) \right\|_1
+    \end{equation}
+\end{minipage}
 
 \section{Task 5}
 %\noindent\fcolorbox{black}{lightgray}{
