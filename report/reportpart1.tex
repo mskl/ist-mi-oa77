@@ -236,9 +236,9 @@ Code utilized in the task 3 is same as in Task 1, except for the objective funct
     \end{minipage} 
 \end{table}
 
-The objective function which we try to minimize in the tasks 1 to 3 consists of two part. The first part, common to all of three tasks measures how far away the robot is from the waypoints at given times defined as $\sum_{k = 1}^K \left\| E x( \tau_k ) - w_k \right\|_2^2$. 
+The objective function which we try to minimize in the tasks 1 to 3 consists of sum of two parts. The first part, common to all of three tasks measures how far away the robot is from the waypoints at given times. This is defined as $\sum_{k = 1}^K \left\| E x( \tau_k ) - w_k \right\|_2^2$. 
 
-The difference between the first three tasks lies in the different regularizer which enforces the fourth wish (simple control) by penalizing the deviations of the control signal from its previous value. By changing the $\lambda$ parameter, we can change the importance of this wish. 
+Second part of the objective function, the regularizer, differs among the first three tasks. Regularizer enforces the fourth wish (simple control) by penalizing the deviations of the control signal from its previous value. By changing the $\lambda$ parameter, we can change the importance of this wish. If the $\lambda$ becomes a large number, the objective function's value shifts towards the regularizer which enforces least number of changes to the control signal. Making the $\lambda$ a large value naturally increases the mean deviation as we put larger importance to minimizing the number of changes of the control signal instead of capturing all of the points.
 
 \noindent
 \begin{minipage}{.33\linewidth}
@@ -260,34 +260,30 @@ The difference between the first three tasks lies in the different regularizer w
     \end{equation}
 \end{minipage}
 
-\begin{itemize}
-    \item[\textbf{Task 1}] utilizes the squared L2 regularizer as shown in Equation \ref{task1:regularizer}. Benefit of using the squared L2 norm can be in easier computation, as no square root needs to be computed.
-    \item[\textbf{Task 2}] utilizes the L2 norm, described in Equation \ref{task2:regularizer}. This can be interpreted as a euclidean distance from the previous actuator vector to the current one.
-    \item[\textbf{Task 3}] relies on the L1 norm, as described in Equation \ref{task3:regularizer}. This norm is not differentiable at 0, however it induces a behavior which was called ``L1 magic'' at the lectures which can help in certain optimization cases.
-\end{itemize}
+Effect of this behavior is shown in the Figure \ref{fig:task4:waypoint:dev}. The number of changes in the control signal does not change for the Task 1 as it stays $79$. The number of changes for Task 2 and 3 is visualized in the Figure \ref{fig:task4:changes}.
 
-As mentioned previously, by changing the $\lambda$ parameter, we can change the influence of the regularizer to the overall objective function. If the lambda becomes a large number, the loss function's bias shifts towards the regularizer which enforces least number of changes to the control signal.
-
-Effect of this behavior is shown in the Figure \ref{fig:task4:waypoint:dev}. The number of changes in the control signal does not change for the Task 1. The number of changes for Task 2 and 3 is visualized in the Figure \ref{fig:task4:changes}.
-
-\emph{Task 1} utilizes the square norm function. The differences between control signals are absolutely limited by the \textit{U\_Max} constraint which results in them being often number lower than 1. Squaring a small number only leads to an even smaller value. Since the value is too small, the contribution to the objective function is neglected and the optimizer rather optimizes the robot positions. 
-
-\emph{Task 2} uses the L2 norm of each update delta vector. Calculating the square root of a small value ($<0$) makes this value larger. The contribution to the objective function is therefore larger than in the Task 1. 
-
-\emph{Task 3} utilizes the L1 norm. 
-
-\begin{figure}[!htb]
-    \centering
-    \includegraphics[width=\linewidth]{part1/notebooks/task_1_2_3_waypoint_mean_dev.pdf}
-    \caption{Waypoint mean deviation for Tasks 1 to 3.}
-    \label{fig:task4:waypoint:dev}
-\end{figure}
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{part1/notebooks/task_2_3_signal_changes.pdf}
     \caption{Control signal changes for Tasks 2 and 3.}
     \label{fig:task4:changes}
+\end{figure}
+
+
+\begin{itemize}
+    \item[\textbf{Task 1}] utilizes the squared L2 regularizer as shown in Equation \ref{task1:regularizer}. Benefit of using the squared L2 norm can be in easier computation, as no square root needs to be computed. The differences between control signals are absolutely limited by the \textit{U\_Max} constraint which results in them being often number lower than 1. Squaring a small number leads to even smaller value. Since the value is too small, the contribution to the objective function is neglected and the optimizer rather minimizes the captured waypoints. 
+    \item[\textbf{Task 2}] utilizes the L2 norm, described in Equation \ref{task2:regularizer}. This can be interpreted as a euclidean distance from the previous actuator vector to the current one. Calculating the square root of a small value ($<0$) makes this value larger. The contribution to the objective function is therefore larger than in the Task 1. The lowest number of updates (1) was achieved by using the $\lambda=10^3$. We can see, that the control signal's function is no longer smooth, but rather has a form of squares as the robot utilizes large control signals which change rarely.
+    \item[\textbf{Task 3}] relies on the L1 norm, as described in Equation \ref{task3:regularizer}. This norm is not differentiable at 0, however it induces a behavior which was called ``L1 magic'' - the property of producing many coefficients with zero values or very small values with few large coefficients\footnote{http://www.chioka.in/differences-between-the-l1-norm-and-the-l2-norm-least-absolute-deviations-and-least-squares/}.
+\end{itemize}
+
+Surprisingly, the performance of the L2 norm in this task is superficial to the L1 norm as the robot achieves lower mean deviation with the same number of points captured. 
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\linewidth]{part1/notebooks/task_1_2_3_waypoint_mean_dev.pdf}
+    \caption{Waypoint mean deviation for Tasks 1 to 3.}
+    \label{fig:task4:waypoint:dev}
 \end{figure}
 
 \section{Task 5}
@@ -329,22 +325,29 @@ If the result of $\left\|p - c\right\|_2 - r$ is negative, the point is within t
 %    }
 %}
 
+% comment on the results from (a)-(d), as you compare them with those you obtained in Task 1. (Note that Task 1 considered waypoints, which can be seen as disks with radius zero.
+
+Mean deviation and number of changes for the Task 6 is shown in the Table \ref{table:task6:table}. The resulting robot's optimal positions are shown in the Figure \ref{fig:task6:figure}.
+
 \begin{table}[!htb]
     \centering
     \caption{Mean deviation and number of changes for 6.}
+    \label{table:task6:table}
     \begin{tabular}{c|ccr}
-    $\lambda$ & changes & circle m. dev. & center m. dev. \\
-    \hline
-    -1 & 8 & 0 & 1.4142
+        $\lambda$ & changes & circle m. dev. & center m. dev. \\
+        \hline
+        $10^{-1}$ & 8 & 0 & 1.4142
     \end{tabular}
 \end{table}
 
 \begin{figure}[!htb]
-    \caption{Robot positions and control signal for Task 6.}
-    \label{fig:task6:graph}
     \centering    
     \includegraphics[width=1\linewidth]{part1/figures/task_6.pdf}
+    \caption{Robot positions and control signal for Task 6.}
+    \label{fig:task6:figure}
 \end{figure}
+
+
 
 \section{Task 7}
 %\noindent\fcolorbox{black}{lightgray}{
@@ -466,7 +469,9 @@ The resulting robot positions are visualized in the Figure \ref{fig:task10:graph
 %    \end{enumerate}}
 %}
 
-\begin{table}[]
+The solution to the reweighting problem is visualized in the Figure \ref{fig:task11:graphs}. The results are described in the Table \ref{table:task11:results}.
+
+\begin{table}[!htb]
 \caption{Results of the reweighting technique in Task 11.}
 \label{table:task11:results}
 \centering
@@ -536,4 +541,4 @@ The optimizer tries to optimize the utility function of each waypoint divided by
     6.2512         0    4.3983    0.0000    5.7632         0
 \end{lstlisting}
 
-By looking at the resulting utility function sizes for each waypoint as shown on the Listing \ref{task13:listing:results:weighted}, we can see that if the robot captures the waypoint, the utlity becomes $0$. Since the optimizer tries to minimize the sum of the utility function for each waypoint, thanks to the reweighting technique, it already has the information from the previous iteration, that the waypoint can be captured. The previous utility value was $0$ and when we divide any number by a very small number ($\epsilon = 10^{-6}$) this fraction explodes thus forcing the optimizer to keep this value small by setting the numerator $0$ again.  
+By investigating the resulting utility function sizes for each waypoint, we can see that if the robot captures the waypoint, the utlity becomes $0$. Since the optimizer tries to minimize the sum of the utility function for each waypoint, thanks to the reweighting technique, it already has the information from the previous iteration, that the waypoint can be captured. The previous utility value was $0$ and when we divide any number by a very small number ($\epsilon = 10^{-6}$) this fraction explodes thus forcing the optimizer to keep this value small by setting the numerator $0$ again.  
