@@ -199,8 +199,7 @@ Code utilized in the task 3 is same as in Task 1, except for the objective funct
             $10^{+0}$ & 79 & 3.6826 \\
             $10^{+1}$ & 79 & 5.6317 \\
             $10^{+2}$ & 79 & 10.9041 \\
-            $10^{+3}$ & 79 & 15.3304 \\
-            $10^{+4}$ & 79 & 16.1303
+            $10^{+3}$ & 79 & 15.3304
         \end{tabular}
     \end{minipage}%
     \begin{minipage}{.33\linewidth}
@@ -216,8 +215,7 @@ Code utilized in the task 3 is same as in Task 1, except for the objective funct
             $10^{+0}$ & 5 & 2.8876 \\
             $10^{+1}$ & 4 & 5.3689 \\
             $10^{+2}$ & 3 & 12.5914 \\
-            $10^{+3}$ & 1 & 16.2266 \\
-            $10^{+4}$ & 2 & 16.2266
+            $10^{+3}$ & 1 & 16.2266
         \end{tabular}
     \end{minipage}%
     \begin{minipage}{.33\linewidth}
@@ -233,8 +231,7 @@ Code utilized in the task 3 is same as in Task 1, except for the objective funct
             $10^{+0} $ & 11 & 2.8732 \\
             $10^{+1} $ & 6 & 5.4361 \\
             $10^{+2} $ & 2 & 13.0273 \\
-            $10^{+3} $ & 2 & 16.0463 \\
-            $10^{+4} $ & 2 & 16.2266
+            $10^{+3} $ & 2 & 16.0463
         \end{tabular}
     \end{minipage} 
 \end{table}
@@ -243,8 +240,25 @@ The objective function which we try to minimize in the tasks 1 to 3 consists of 
 
 The difference between the first three tasks lies in the different regularizer which enforces the fourth wish (simple control) by penalizing the deviations of the control signal from its previous value. By changing the $\lambda$ parameter, we can change the importance of this wish. 
 
-% Command for putting a caption to an equation
-% \newcommand{\capequation}[1]{\begin{center} #1 \end{center}}
+\noindent
+\begin{minipage}{.33\linewidth}
+    \begin{equation}
+        \label{task1:regularizer}
+        \sum_{t = 1}^{T-1} \left\| u(t) - u(t-1) \right\|_2^2
+    \end{equation}
+\end{minipage}
+\begin{minipage}{.33\linewidth}
+    \begin{equation}
+        \label{task2:regularizer}
+        \sum_{t = 1}^{T-1} \left\| u(t) - u(t-1) \right\|_2
+    \end{equation}
+\end{minipage}
+\begin{minipage}{.33\linewidth}
+    \begin{equation}
+        \label{task3:regularizer}
+        \sum_{t = 1}^{T-1} \left\| u(t) - u(t-1) \right\|_1
+    \end{equation}
+\end{minipage}
 
 \begin{itemize}
     \item[\textbf{Task 1}] utilizes the squared L2 regularizer as shown in Equation \ref{task1:regularizer}. Benefit of using the squared L2 norm can be in easier computation, as no square root needs to be computed.
@@ -254,7 +268,13 @@ The difference between the first three tasks lies in the different regularizer w
 
 As mentioned previously, by changing the $\lambda$ parameter, we can change the influence of the regularizer to the overall objective function. If the lambda becomes a large number, the loss function's bias shifts towards the regularizer which enforces least number of changes to the control signal.
 
-Effect of this behavior is shown in the Figure \ref{fig:task4:waypoint:dev}. The number of changes in the control signal does not change in the Figure \ref{fig:task4:changes}.
+Effect of this behavior is shown in the Figure \ref{fig:task4:waypoint:dev}. The number of changes in the control signal does not change for the Task 1. The number of changes for Task 2 and 3 is visualized in the Figure \ref{fig:task4:changes}.
+
+\emph{Task 1} utilizes the square norm function. The differences between control signals are absolutely limited by the \textit{U\_Max} constraint which results in them being often number lower than 1. Squaring a small number only leads to an even smaller value. Since the value is too small, the contribution to the objective function is neglected and the optimizer rather optimizes the robot positions. 
+
+\emph{Task 2} uses the L2 norm of each update delta vector. Calculating the square root of a small value ($<0$) makes this value larger. The contribution to the objective function is therefore larger than in the Task 1. 
+
+\emph{Task 3} utilizes the L1 norm. 
 
 \begin{figure}[!htb]
     \centering
@@ -269,29 +289,6 @@ Effect of this behavior is shown in the Figure \ref{fig:task4:waypoint:dev}. The
     \caption{Control signal changes for Tasks 2 and 3.}
     \label{fig:task4:changes}
 \end{figure}
-
-\noindent
-\begin{minipage}{.33\linewidth}
-    % \capequation{Task 1: squared l2 norm}
-    \begin{equation}
-        \label{task1:regularizer}
-        \sum_{t = 1}^{T-1} \left\| u(t) - u(t-1) \right\|_2^2
-    \end{equation}
-\end{minipage}
-\begin{minipage}{.33\linewidth}
-    % \capequation{Task 2: l2 norm}
-    \begin{equation}
-        \label{task2:regularizer}
-        \sum_{t = 1}^{T-1} \left\| u(t) - u(t-1) \right\|_2
-    \end{equation}
-\end{minipage}
-\begin{minipage}{.33\linewidth}
-    % \capequation{Task 3: l1 norm}
-    \begin{equation}
-        \label{task3:regularizer}
-        \sum_{t = 1}^{T-1} \left\| u(t) - u(t-1) \right\|_1
-    \end{equation}
-\end{minipage}
 
 \section{Task 5}
 %\noindent\fcolorbox{black}{lightgray}{
