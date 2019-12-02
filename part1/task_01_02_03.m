@@ -47,13 +47,16 @@ for task = 3
             delta = u(:, 2:T) - u(:, 1:T-1);        
             if task == 1
                 % expected 2.1958 with i=2
-                minimize(sum(vec_sqr_sum(E*x(:,tau+1) - w)) + lambda*sum(sum_square(delta))) 
+                minimize(sum(vec_sqr_sum(E*x(:,tau+1) - w))...
+                    + lambda*sum(sum_square(delta))) 
             elseif task == 2
                 % expected 0.7021 with i=2
-                minimize(sum(vec_sqr_sum(E*x(:,tau+1) - w)) + lambda*sum(norms(delta, 2)));
+                minimize(sum(vec_sqr_sum(E*x(:,tau+1) - w))...
+                    + lambda*sum(norms(delta, 2)));
             elseif task == 3
                 % expected 0.8863 with i=2
-                minimize(sum(vec_sqr_sum(E*x(:,tau+1) - w)) + lambda*sum(norms(delta, 1)));
+                minimize(sum(vec_sqr_sum(E*x(:,tau+1) - w)...
+                    ) + lambda*sum(norms(delta, 1)));
             end
 
             subject to
