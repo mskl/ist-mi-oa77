@@ -25,7 +25,7 @@ T = 80;
 
 results = [];
 
-for task = 3
+for task = 1
     for i = 0:7
         lambda = 10^(-3+i);
 
