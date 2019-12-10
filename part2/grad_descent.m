@@ -22,7 +22,7 @@ while(1)
         d(:,k)= -g;
         a(k)=1; %backtracking(1,10^-4,0.5);
         while(1)
-            cond2=sum(log(f_s) - Y.*h_S) + g' *a(k) *d(:,k); 
+            cond2=(1/length(X))*sum(log(f_s) - Y.*h_S) + 10^-4*(g' *a(k) *d(:,k));
             auxS=S(:,k) + a(k)*d(1:end-1,k);
             auxr=r(k) + a(k)*d(end,k);
             cond1=sum(log(1+exp(auxS'*X-auxr))-Y.*(auxS'*X-auxr))/length(X);
