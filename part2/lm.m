@@ -1,7 +1,6 @@
-function [result, f_est] = lm(dataset, xinit)
+function [result, f_est] = lm(dataset, xinit, print)
     load(dataset, 'A', 'iA', 'y', 'z', 'iS', 'S');
     
-    print = 1;
     clc; 
     close all
     xk = xinit;
@@ -82,7 +81,7 @@ function [result, f_est] = lm(dataset, xinit)
         scatter(result(1,:), result(2,:), 80, 'b', 'o', 'LineWidth', 2);
         xlim([min(A(1,:), [], 2)-3 max(A(1,:), [], 2)+3])
         title(['Network localization']);
-
+        
         % -- 2) norm of the gradient of the cost function
         figure(2);
         semilogy(1:length(norms_f), norms_f, 'LineWidth', 2);
