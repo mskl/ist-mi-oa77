@@ -3,7 +3,7 @@ map = [1 0 0
 %% Task 2 
 load data1.mat
 tic
-[S_1]=grad_descent_2(X,Y,-1*ones(length(X(:,1)),1),0,10^-6);
+[S_1]=Newton_method(X,Y,-1*ones(length(X(:,1)),1),0,10^-6);
 toc
 figure
 scatter(X(1,:),X(2,:),[],Y,'o')
@@ -15,10 +15,11 @@ xlim([x(1)+0.05 x(end)+0.05])
 ylim([-inf +inf])
 xlabel('$x_1$','interpreter','latex')
 ylabel('$x_2$','interpreter','latex')
+
 %% Task3
 load data2.mat
 tic;
-[S_2]=grad_descent_2(X,Y,-1*ones(length(X(:,1)),1),0,10^-6);
+[S_2]=Newton_method(X,Y,-1*ones(length(X(:,1)),1),0,10^-6);
 toc
 figure
 scatter(X(1,:),X(2,:),[],Y,'o')
@@ -34,10 +35,10 @@ ylabel('$x_2$','interpreter','latex')
 %% Task4
 load data3.mat
 tic
-[S_3]=grad_descent_2(X,Y,-1*ones(length(X(:,1)),1),0,10^-6);
+[S_3]=Newton_method(X,Y,-1*ones(length(X(:,1)),1),0,10^-6);
 toc
 % Available
 load data4.mat
 tic
-[S_4]=grad_descent_2(X,Y,-1*ones(length(X(:,1)),1),0,10^-6);
+[S_4]=Newton_method(X,Y,-1*ones(length(X(:,1)),1),0,10^-6);
 toc
