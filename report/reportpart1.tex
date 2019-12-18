@@ -11,7 +11,7 @@
 %}
 %}
 
-The code used to solve the task 1 is described in the Listing \ref{task1:code}. \lstinline{vec_sqr_sum} function is described in the Listing \ref{task1:code:vecsqrsum}. The results of the task 1 for $\lambda \in \{ 10^{-3}, 10^{-2}, 10^{-1}, 10^0, 10^1, 10^2, 10^3 \}$ are described in the Table \ref{task1:table:results}. The robot positions and controlare visualized in the Figure \ref{fig:task1:graphs}.
+The code used to solve the task 1 is described in the Listing \ref{task1:code}. \lstinline{vec_sqr_sum} function is described in the Listing \ref{task1:code:vecsqrsum}. The results of the task 1 for $\lambda \in \{ 10^{-3}, 10^{-2}, 10^{-1}, 10^0, 10^1, 10^2, 10^3 \}$ are described in the Table \ref{task1:table:results}. The robot positions and control are visualized in the Figure \ref{fig:task1:graphs}.
 
 \begin{lstlisting}[caption=Code for the Task 1., label=task1:code]
 tau = [10 25 30 40 50 60];
@@ -1006,14 +1006,14 @@ end
 
 \begin{figure}[H]
     \centering    
-    \includegraphics[width=0.5\linewidth]{part2/figures/task8_netloc.png}
+    \includegraphics[width=0.6\linewidth]{part2/figures/task8_netloc.png}
     \caption{Network localization setup with the red squares being the anchors, the blue stars representing the initial guesses for the sensors, the blue dots being the real location of the sensors and the blue circles being the final guess.}
     \label{fig:task8:netloc}
 \end{figure}
 
 \begin{figure}[H]
     \centering    
-    \includegraphics[width=0.5\linewidth]{part2/figures/task8_norm.png}
+    \includegraphics[width=0.6\linewidth]{part2/figures/task8_norm.png}
     \caption{Evolution of $||\nabla f(x_k) ||$ through the iterations of the LM method for the first dataset.}
     \label{fig:task8:norm}
 \end{figure}
@@ -1109,7 +1109,7 @@ A constrained optimization problem can be written in a general form as seen in \
 \end{aligned}
 \end{equation}
 
-The first thing to do is to reformulate the problem to match the formulation given in \eqref{eq:kkt_min}. We're going to use $x$ to represent the $y^*$ from the problem formulation. Then, we can see that $f(x) = ||p-x||_2$. Since the point has to belong to the disk, then $g(x) = ||x - c||_2 - r$. 
+The first thing to do is to reformulate the problem to match the formulation given in \eqref{eq:kkt_min}. Then, we can see that $f(x) = ||p-x||_2$. Since the point has to belong to the disk, then $g(x) = ||x - c||_2 - r$. 
 
 With these expressions we can then use the Karush-Kuhn-Tucker (KKT) theorem, which declares that for an optimization problem that is formulated as shown in \eqref{eq:kkt_min}, with f, h and g being continuously differentiable, if there is an $x^*$ that is a regular local minimum then there exists $\lambda^* \in \mathbf{R}^p$ and $\mu^* \in \mathbf{R}^m$ that fulfill the conditions in \eqref{eq:kkt_conds}.
 
@@ -1159,7 +1159,7 @@ Then we substitute \eqref{eq:mu} back in \eqref{eq:stat}, which leads to two dif
 
 In this case, the correct answer is the one where $(p - c)/||p-c||_2)$ is positive. This is because $x$ represents the projection of $p$ in the disk - the larger the $x$, the smaller $||p - x||_2$ will be in the end. This solution is only valid in the stated conditions, which means that $g(x) \leq 0 \Leftrightarrow ||x - c||_2 - r$ has to hold. In 
 
-We still have to take into account that since $g(x) = 0$ leads into an impossible we have to make sure that that doesn't happen - which means that $x$ and $p$ have to be different.
+We still have to take into account that since $g(x) = 0$ leads to an impossible solutions we have to make sure that that doesn't happen - which means that $x$ and $p$ have to be different.
 
 The closed-form solution for the stated problem can be seen in \eqref{eq:closedformsol}.
 
@@ -1175,15 +1175,17 @@ Considering the problem presented in (\ref{eq:pA}), the goal becomes to find a c
 \label{eq:pA}
 \begin{aligned}
 \underset{x,u}{\text{minimize}} \quad & \sum_{t = 1}^{T-1} \Vert  x(t) - x_{des}(t)  \Vert_2^2   + \lambda \sum_{t = 0}^{T-1} \Vert  u(t)  \Vert_2^2 \\ 
-\text{subject to} \quad & x(0) = x_{initial} \\
-                  & x(T) = x_{final} \\
+\text{subject to} \quad & x(0) = x_{\text{initial}} \\
+                  & x(T) = x_{\text{final}} \\
                   & x(t+1) = Ax(t) + Bu(t), \ \text{for} \  0 \leq t  \leq T - 1 
 \end{aligned}
 \end{equation}
 
-Given the presented problem, in order to solve it using the KKT theorem, the problem has to be rewritten to fit the form presented in (\ref{eq:kkt_min})
+The vectors $x$ and $x_{\text{des}}$ are considered to be $[n\times 1]$ and the vector $u$ to be $[m \times 1]$ with $m<n$.
 
-In order to do so, the problem variable will be the variable $y$, defined as presented in (\ref{eq:y_t}).
+Now, given the presented problem, in order to solve it using the KKT theorem, the problem has to be rewritten to fit the form presented in (\ref{eq:kkt_min}).
+
+In order to do so, the chosen problem variable will be the variable $y$, defined as presented in (\ref{eq:y_t}).
 
 \begin{equation}
 \label{eq:y_t}
@@ -1209,7 +1211,7 @@ Likewise, the function $f(x(t), u(t))$ to be minimized will be as in \eqref{eq:t
     f(x(t),y(t)) = \sum_{t=1}^{T-1} ||x(t) - x_{\text{des}}(t)||_2^2 + \lambda \sum_{t=0}^{T-1} ||u(t)||_2^2
 \end{equation}
 
-And so, since the function $f$ is a sum of squared norms, it will be a convex function and therefore, the problem is a convex problem.
+Therefore, since the function $f$ is a sum of squared norms, it will be a convex function and therefore, the problem is a convex problem.
 
 In addition, considering that the only constraints specified are equality constraints that can be rewritten as affine functions, as in (\ref{eq:t2equal}), it becomes possible to say that no  other regularity conditions need to be verified in order for the solution to satisfy the KKT conditions.
 
@@ -1273,10 +1275,14 @@ And so, the equality constraints have been compiled and represented as in \eqref
     c^T y + d = 0_{(T+1)n\times 1}
 \end{equation}
 
-Therefore, the gradient $\nabla h(y(t))$ will simply be as in ().
+Therefore, the gradient $\nabla h(y(t))$ will simply be as in \eqref{eq:t2hyt}.
 
+\begin{equation}
+\label{eq:t2hyt}
+    \nabla h(y(t)) = \nabla [c^T y + d] = (c^T)^T = c
+\end{equation}
 
-As in (\ref{eq:t2fystar}), it is necessary to compute the gradient $\nabla f(y(t))$ to determine a solution $y^*$, which will imply computing the gradients with respect to all of the components of the vector $y(t)$. However, since the variables $x(t)$ and $u(t)$ are independent of each other, one can compute their gradients separately, as presented in (\ref{eq:t2fxt}).
+As in (\ref{eq:t2fystar}), it is also necessary to compute the gradient $\nabla f(y(t))$ to determine a solution $y^*$, which implies computing the gradients with respect to all of the components of the vector $y(t)$, which allows for the simplification of the sum since all of the remaining partial derivatives will be zero. And so, since the variables $x(t)$ and $u(t)$ are independent of each other it's possible to compute their gradients separately, as presented in (\ref{eq:t2fxt}).
 
 \begin{equation}
 \label{eq:t2fxt}
@@ -1293,8 +1299,14 @@ And so, the gradient $\nabla f(y(t))$ is as in (\ref{eq:t2nabfy})
 \nabla f(y(t)) = 
 \left[
 \begin{array}{c}
-2 x(t) - 2x_\text{des}(t) \\
-2 \lambda u(t)
+0 \\
+2 x(1) - 2x_\text{des}(1) \\
+\vdots \\
+2 x(T-1) - 2x_\text{des}(T-1) \\
+0 \\
+2\lambda u(0) \\
+\vdots \\
+2 \lambda u(T-1)
 \end{array}
 \right]
 = Gy + l
@@ -1307,10 +1319,10 @@ With the matrix G as in \eqref{eq:t2g} and the matrix l as in \eqref{eq:t2l}.
 G = 
 \left[
 \begin{array}{c : c : c}
-0 & 0 & 0 \\ \hdashline
-2I_{n(T-1) \times n(T-1)} & 0 & 0 \\ \hdashline
-0 & 0 & 0 \\ \hdashline
-0 & 0 & 2 \lambda I_{m(T-1) \times m(T)}
+0 & 0_{n \times 1} & 0 \\ \hdashline
+2I_{n(T-1) \times n(T-1)} & 0_{n \times 1} & 0 \\ \hdashline
+0 & 0_{n \times 1} & 0 \\ \hdashline
+0 & 0_{n \times 1} & 2 \lambda I_{m(T-1) \times m(T)}
 \end{array}
 \right]
 \end{equation}
@@ -1321,10 +1333,13 @@ l =
 \left[
 \begin{array}{c}
 0_{n \times 1} \\
--2 x_{\text{des}} \cdot t(1)_{n \times 1} \\
+-2 x_\text{des}(1)_{n \times 1} \\
 \vdots \\
--2 x_{\text{des}} \cdot t(T)_{n \times 1} \\
-0_{n \times 1}
+-2 x_\text{des}(T-1)_{n \times 1} \\
+0_{n \times 1} \\ \hdashline
+0_{m \times 1} \\
+\vdots \\
+0_{m \times 1}
 \end{array}
 \right]
 \end{equation}
