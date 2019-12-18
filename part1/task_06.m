@@ -24,12 +24,13 @@ cvx_begin
 variable x(4,T+1);
 variable u(2,T);
 
-delta = u(:, 2:T) - u(:, 1:T-1);        
+
 
 % distance == L2 norm
 %   distance - r < 0 => distance < r == clip to 0 with max(0, negative)
 %   distance - r > 0 => distance > r == return how far away from the circle
 
+delta = u(:, 2:T) - u(:, 1:T-1);        
 minimize(sum(max(0, vec_sqr_sum(c - x(1:2, tau+1)) - r)) + lambda*sum(norms(delta, 2)));
 
 subject to
